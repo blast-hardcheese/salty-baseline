@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+
+###############################################
+# Script to automate the installation of play #
+###############################################
+
+download() {
+    _URL="$1"
+    _TARGET="$2"
+
+    echo "Downloading '$_URL' to '$_TARGET'..."
+    if type curl >/dev/null 2>&1; then
+        curl -C - -o "$_TARGET" "$_URL"
+    elif type wget >/dev/null 2>&1; then
+        wget -c -O "$_TARGET" "$_URL"
+    fi
+
+    echo 'Done!'
+
+    unset _URL
+    unset _TARGET
+}
+
+extract() {
+    _ZIPFILE="$1"
+    _TARGET="$2"
+
+    mkdir -p "$_TARGET"
+    unzip "$_ZIPFILE" -d "$_TARGET"
+
+    unset _ZIPFILE
+    unset _TARGET
+}
+
+# The following variables assume a lot about how Play structures their files. Hopefully the assumptions hold!
+VERSION="2.2.1"
+FNAME="play-$VERSION"
+ZIPFILE="$FNAME.zip"
+URL="http://downloads.typesafe.com/play/$VERSION/$ZIPFILE"
+TARGET="$HOME/deps/play"
+
+if [ ! -d "$TARGET/$FNAME" ]; then
+    download "$URL" "/tmp/$ZIPFILE"
+    extract "/tmp/$ZIPFILE" "$TARGET"
+fi
+
+if [ -d "$TARGET/$FNAME" ]; then
+    exec "$TARGET/$FNAME/play" "$@"
+fi
