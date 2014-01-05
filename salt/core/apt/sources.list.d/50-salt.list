@@ -1,0 +1,3 @@
+{%- set debian_version = salt['pillar.get']("core.debian", "wheezy") -%}
+
+deb http://debian.saltstack.com/debian {{ debian_version }}-saltstack main

@@ -1,0 +1,10 @@
+{%- set debian_version = salt['pillar.get']("core.debian", "wheezy") -%}
+
+deb http://http.debian.net/debian {{ debian_version }} main non-free contrib
+deb-src http://http.debian.net/debian {{ debian_version }} main non-free contrib
+
+deb http://security.debian.org/ {{ debian_version }}/updates main non-free contrib
+deb-src http://security.debian.org/ {{ debian_version }}/updates main non-free contrib
+
+deb http://http.debian.net/debian {{ debian_version }}-updates main non-free contrib
+deb-src http://http.debian.net/debian {{ debian_version }}-updates main non-free contrib

@@ -1,0 +1,11 @@
+{%- macro locale(code) -%}
+{{ salt['pillar.get']("core.locale." + code, "# " + code) }}
+{%- endmacro -%}
+
+{{ locale("en_US") }}
+{{ locale("es_ES") }}
+{{ locale("fr_FR") }}
+{{ locale("it_IT") }}
+{{ locale("ja_JP") }}
+{{ locale("ru_RU") }}
+{{ locale("zh_TW") }}
