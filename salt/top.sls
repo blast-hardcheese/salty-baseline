@@ -6,3 +6,4 @@ base:
 
   'viridian':
     - viridian.users
+    - viridian.gitolite
